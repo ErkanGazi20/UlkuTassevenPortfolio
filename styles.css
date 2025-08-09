@@ -105,8 +105,8 @@ section {
 /* Different heights and background colors */
 /* Section 1 image styles */
 #section1 {
-  height: 100vh; /* Full viewport height */
-  overflow: hidden; /* Hide any overflow */
+  height: 100vh; 
+  overflow: hidden;
 }
 
 .section-link {
@@ -216,23 +216,28 @@ section {
 .section-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;        /* Make sure the image covers the entire container */
-  <!-- object-position: right;   /* Focus on the right side of the image */ -->
+  object-fit: cover; 
+  object-position: center; /* Focus on center for better responsiveness */
   display: block;
 }
 
+@media (max-width: 768px) {
+  .section-image {
+    object-position: center; /* Avoid cutting off important parts */
+  }
+}
 
 header {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  <!-- padding: 1rem; -->
+  padding: 1rem;
   background-color: #fff;
 }
 
 .logo-container {
-  <!-- margin-bottom: 0.5rem; -->
+ margin-bottom: 0.5rem;
 }
 
 .logo-image {
