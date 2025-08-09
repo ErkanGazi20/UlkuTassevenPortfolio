@@ -1,0 +1,380 @@
+/* Reset and basic styles */
+
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background: #fff;
+  color: #222;
+  text-align: center;
+}
+
+.hero-header {
+  background-color:rgb(253, 252, 252);
+  padding: 2rem 1rem;
+}
+
+.hero-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.tagline {
+  font-size: 1rem;
+  color: #888;
+  margin-top: 0.5rem;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid #ddd;
+  padding-top: 1rem;
+}
+
+.main-nav a {
+  text-decoration: none;
+  color: #222;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.main-nav a:hover {
+  color: #444;
+  text-decoration: underline;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header and footer styles */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color:rgb(253, 252, 252);
+  color: white;
+  flex-shrink: 0;
+}
+
+/* Logo */
+.logo {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+nav a:hover {
+  color: #ff6347; /* tomato */
+}
+
+p {
+  font-size: 16px; /* Adjust size as needed */
+}
+
+/* Body sections */
+main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+section {
+  width: 100vw;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+/* Different heights and background colors */
+/* Section 1 image styles */
+#section1 {
+  height: 100vh; /* Full viewport height */
+  overflow: hidden; /* Hide any overflow */
+}
+
+.section-link {
+  text-decoration: none; /* remove underline from link */
+  color: inherit;        /* keep text color from section styling */
+}
+
+#section2 {
+  height: 400px;
+  background-color: #33797d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* smooth hover effect */
+}
+
+#section2:hover {
+  background-color: #46a0a5; /* lighter shade for hover */
+  transform: scale(1.02);    /* subtle zoom effect */
+  cursor: pointer;           /* pointer to show it's clickable */
+}
+
+#section3 {
+  height: 250px;
+  background-color: #db951e;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* smooth hover effect */
+}
+
+#section3:hover {
+  background-color: #e5b839; /* lighter shade for hover */
+  transform: scale(1.02);    /* subtle zoom effect */
+  cursor: pointer;           /* pointer to show it's clickable */
+} 
+
+#section4 {
+  height: 250px;
+  background-color: #ad644a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* smooth hover effect */
+}
+
+#section4:hover {
+  background-color: #d18b75; /* lighter shade for hover */
+  transform: scale(1.02);    /* subtle zoom effect */
+  cursor: pointer;           /* pointer to show it's clickable */
+} 
+
+#section5 {
+  height: 250px;
+  background-color: #004e7a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* smooth hover effect */
+}
+
+#section5:hover {
+  background-color: #4a8eb8; /* lighter shade for hover */
+  transform: scale(1.02);    /* subtle zoom effect */
+  cursor: pointer;           /* pointer to show it's clickable */
+}
+
+#sectiontheUnitraWay {
+  background-color: #33797d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem; /* <— adds space between the children (h1, p, p) */
+  padding: 2rem; /* optional breathing room */
+  box-sizing: border-box;
+}
+
+#sectionhowWeHelp {
+  background-color: #db951e;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem; /* <— adds space between the children (h1, p, p) */
+  padding: 2rem; /* optional breathing room */
+  box-sizing: border-box;
+}
+
+
+.section-white {
+  background-color: #004e7a;
+  padding: 2rem;        /* space inside */
+  color: white;         /* adjust text color for contrast */
+}
+
+.section-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* Make sure the image covers the entire container */
+  <!-- object-position: right;   /* Focus on the right side of the image */ -->
+  display: block;
+}
+
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  <!-- padding: 1rem; -->
+  background-color: #fff;
+}
+
+.logo-container {
+  <!-- margin-bottom: 0.5rem; -->
+}
+
+.logo-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 400px; /* Adjust logo size */
+  height: auto;
+}
+nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #000;
+  font-weight: 500;
+}
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Contact Form Section */
+.contact-section {
+  background: #f9f9f9;
+  padding: 3rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-container {
+  background: #fff;
+  padding: 2rem 3rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  max-width: 500px;
+  width: 100%;
+  text-align: left;
+}
+
+.contact-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.contact-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-container label {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.contact-container input,
+.contact-container textarea {
+  margin-top: 0.5rem;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+.contact-container textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.contact-container button {
+  margin-top: 1.5rem;
+  padding: 0.8rem;
+  background-color: #00bfa5;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.contact-container button:hover {
+  background-color: #009e87;
+}
+
+ .contact-form .form-input,
+.contact-form .form-textarea {
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.contact-form .form-button {
+  padding: 0.75rem;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form .form-button:hover {
+  background-color: #444;
+}
+
+.input-error {
+  border: 2px solid #e74c3c !important;
+  background-color: #fff0f0;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* Apply the same vertical form layout as the contact form */
+form.contact-form {
+  display: flex;
+  flex-direction: column; /* Align inputs vertically */
+  gap: 1rem;  /* Spacing between form elements */
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.spinner {
+  font-size: 1rem;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
