@@ -1,35 +1,57 @@
-/* Reset and basic styles */
-
-body {
+/* =========================
+   1. RESET & GLOBAL STYLES
+========================= */
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: 'Arial', sans-serif;
+  padding: 0;
+}
+
+html, body {
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
   background: #fff;
   color: #222;
+  display: flex;
+  flex-direction: column;
+}
+
+:root {
+  --eu-blue: #004494;
+  --teal: #33797d;
+  --teal-light: #46a0a5;
+  --gold: #db951e;
+  --gold-light: #e5b839;
+  --terracotta: #ad644a;
+  --terracotta-light: #d18b75;
+  --navy: #004e7a;
+  --navy-light: #4a8eb8;
+}
+
+/* =========================
+   2. HEADER & NAVIGATION
+========================= */
+header.hero-header {
+  background-color: #fff;
+  padding: 2rem 1rem 1rem;
   text-align: center;
 }
 
-.hero-header {
-  background-color:rgb(253, 252, 252);
-  padding: 2rem 1rem;
+.logo-container {
+  margin-bottom: 0.5rem;
 }
 
-.hero-header h1 {
-  font-size: 2rem;
-  font-weight: bold;
-  margin: 0;
-}
-
-.tagline {
-  font-size: 1rem;
-  color: #888;
-  margin-top: 0.5rem;
+.logo-image {
+  display: block;
+  margin: 0 auto;
+  max-width: 400px;
+  height: auto;
 }
 
 .main-nav {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  margin-top: 1.5rem;
   border-top: 1px solid #ddd;
   padding-top: 1rem;
 }
@@ -41,298 +63,241 @@ body {
   transition: color 0.3s;
 }
 
-.main-nav a:hover {
-  color: #444;
-  text-decoration: underline;
-}
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
-body, html {
-  height: 100%;
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-/* Header and footer styles */
+/* =========================
+   3. FOOTER
+========================= */
 footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 1rem 2rem;
-  background-color:rgb(253, 252, 252);
-  color: white;
-  flex-shrink: 0;
+  background-color: #fdfcfc;
 }
 
-/* Logo */
-.logo {
-  font-weight: bold;
-  font-size: 1.5rem;
-}
-
-nav a:hover {
-  color: #ff6347; /* tomato */
-}
-
-p {
-  font-size: 16px; /* Adjust size as needed */
-}
-
-/* Body sections */
-main {
-  flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
-}
-
-section {
-  width: 100vw;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-  font-weight: bold;
-}
-
-/* Different heights and background colors */
-/* Section 1 image styles */
-#section1 {
-  height: 100vh; 
-  overflow: hidden;
-}
-
+/* =========================
+   4. SECTION BLOCKS (Home)
+========================= */
 .section-link {
-  text-decoration: none; /* remove underline from link */
-  color: inherit;        /* keep text color from section styling */
+  text-decoration: none;
+  color: inherit;
 }
 
-#section2 {
-  height: 400px;
-  background-color: #33797d;
+.section-block {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* smooth hover effect */
-}
-
-#section2:hover {
-  background-color: #46a0a5; /* lighter shade for hover */
-  transform: scale(1.02);    /* subtle zoom effect */
-  cursor: pointer;           /* pointer to show it's clickable */
-}
-
-#section3 {
   height: 250px;
-  background-color: #db951e;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* smooth hover effect */
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-#section3:hover {
-  background-color: #e5b839; /* lighter shade for hover */
-  transform: scale(1.02);    /* subtle zoom effect */
-  cursor: pointer;           /* pointer to show it's clickable */
-} 
-
-#section4 {
-  height: 250px;
-  background-color: #ad644a;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* smooth hover effect */
+.section-block:hover {
+  transform: scale(1.02);
+  cursor: pointer;
 }
 
-#section4:hover {
-  background-color: #d18b75; /* lighter shade for hover */
-  transform: scale(1.02);    /* subtle zoom effect */
-  cursor: pointer;           /* pointer to show it's clickable */
-} 
+/* Specific colors */
+.section-teal { background-color: var(--teal); }
+.section-teal:hover { background-color: var(--teal-light); }
 
-#section5 {
-  height: 250px;
-  background-color: #004e7a;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* smooth hover effect */
-}
+.section-gold { background-color: var(--gold); }
+.section-gold:hover { background-color: var(--gold-light); }
 
-#section5:hover {
-  background-color: #4a8eb8; /* lighter shade for hover */
-  transform: scale(1.02);    /* subtle zoom effect */
-  cursor: pointer;           /* pointer to show it's clickable */
-}
+.section-terracotta { background-color: var(--terracotta); }
+.section-terracotta:hover { background-color: var(--terracotta-light); }
 
-#sectiontheUnitraWay {
-  background-color: #33797d;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: 1.25rem; /* <— adds space between the children (h1, p, p) */
-  padding: 2rem; /* optional breathing room */
-  box-sizing: border-box;
-}
+.section-navy { background-color: var(--navy); }
+.section-navy:hover { background-color: var(--navy-light); }
 
-#sectionhowWeHelp {
-  background-color: #db951e;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: 1.25rem; /* <— adds space between the children (h1, p, p) */
-  padding: 2rem; /* optional breathing room */
-  box-sizing: border-box;
-}
-
-
-.section-white {
-  background-color: #004e7a;
-  padding: 2rem;        /* space inside */
-  color: white;         /* adjust text color for contrast */
-}
-
+/* Banner Image */
 .section-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover; 
-  object-position: center; /* Focus on center for better responsiveness */
-  display: block;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
 }
 
-@media (max-width: 768px) {
-  .section-image {
-    object-position: center; /* Avoid cutting off important parts */
-  }
+/* =========================
+   5. "The EUNITRA Way" Page
+========================= */
+#sectiontheUnitraWay {
+  padding: 3rem 1.5rem;
+  color: #fff;
 }
 
-header {
+#sectiontheUnitraWay section {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  text-align: center;
-  padding: 1rem;
-  background-color: #fff;
-}
-
-.logo-container {
- margin-bottom: 0.5rem;
-}
-
-.logo-image {
-  display: block;
-  margin: 0 auto;
-  max-width: 400px; /* Adjust logo size */
-  height: auto;
-}
-nav ul {
-  display: flex;
   gap: 2rem;
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: var(--teal);
 }
 
-nav ul li a {
-  text-decoration: none;
-  color: #000;
-  font-weight: 500;
-}
-nav ul li a:hover {
-  text-decoration: underline;
+#sectiontheUnitraWay section:nth-child(even) {
+  flex-direction: row-reverse;
+  background-color: var(--teal-light);
 }
 
-/* Contact Form Section */
-.contact-section {
-  background: #f9f9f9;
-  padding: 3rem 1rem;
+#sectiontheUnitraWay .content {
+  flex: 1;
+  min-width: 300px;
+}
+
+#sectiontheUnitraWay h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+#sectiontheUnitraWay p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+#sectiontheUnitraWay .image {
+  flex: 1;
+  min-width: 250px;
   display: flex;
   justify-content: center;
+}
+
+#sectiontheUnitraWay .image img {
+  max-width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+}
+
+/* =========================
+   6. "How We Help" & Contact
+========================= */
+/* Reusable strip layout (used by both pages) */
+.strip {
+  padding: 3rem 1.5rem;
+  color: #fff;
+}
+
+/* Card-like sections inside a strip */
+.strip section {
+  display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: var(--strip-bg, var(--teal));
+  transition: transform 0.2s ease;
+}
+
+.strip section:hover {
+  transform: translateY(-2px);
+}
+
+.strip section:nth-child(even) {
+  flex-direction: row-reverse;
+  background-color: var(--strip-bg-alt, var(--teal-light));
+}
+
+.strip .content {
+  flex: 1;
+  min-width: 300px;
+}
+
+.strip h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.strip p,
+.strip li {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+/* Optional list styling for steps */
+.strip ul.steps {
+  margin: 0.5rem 0 0;
+  padding-left: 1.25rem;
+}
+
+/* Image placeholder / slot */
+.strip .image {
+  flex: 1;
+  min-width: 250px;
+  display: flex;
+  justify-content: center;
+}
+
+.strip .image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+}
+
+/* Contact strip */
+.contact-strip {
+  background-color: var(--navy);
+  padding: 3rem 1.5rem;
+  display: flex;
+  justify-content: center;
 }
 
 .contact-container {
-  background: #fff;
-  padding: 2rem 3rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  max-width: 500px;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 700px;
   width: 100%;
-  text-align: left;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .contact-container h2 {
   text-align: center;
   margin-bottom: 1.5rem;
-  font-size: 1.8rem;
-  color: #333;
+  color: var(--navy);
 }
 
-.contact-container form {
+/* Page-specific color themes */
+#sectiontheUnitraWay.strip {
+  --strip-bg: var(--teal);
+  --strip-bg-alt: var(--teal-light);
+}
+
+#sectionhowWeHelp.strip {
+  --strip-bg: var(--gold);
+  --strip-bg-alt: var(--gold-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .strip section { flex-direction: column !important; }
+}
+
+
+.section-white {
+  background-color: var(--navy);
+  padding: 2rem;
+  color: white;
+}
+
+.contact-form {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.contact-container label {
-  margin-top: 1rem;
-  font-weight: bold;
-  color: #333;
-}
-
-.contact-container input,
-.contact-container textarea {
-  margin-top: 0.5rem;
-  padding: 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  width: 100%;
-}
-
-.contact-container textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.contact-container button {
-  margin-top: 1.5rem;
-  padding: 0.8rem;
-  background-color: #00bfa5;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.contact-container button:hover {
-  background-color: #009e87;
-}
-
- .contact-form .form-input,
+.contact-form .form-input,
 .contact-form .form-textarea {
   padding: 0.4rem;
   border: 1px solid #ccc;
@@ -357,29 +322,60 @@ nav ul li a:hover {
   background-color: #444;
 }
 
-.input-error {
-  border: 2px solid #e74c3c !important;
-  background-color: #fff0f0;
+/* =========================
+   7. RESPONSIVE
+========================= */
+@media (max-width: 768px) {
+  .main-nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  #sectiontheUnitraWay section {
+    flex-direction: column !important;
+  }
 }
 
-.error-message {
-  color: #e74c3c;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
-  display: block;
+/* =========================
+   8. Nav Link animation
+========================= */
+
+/* ==== NAV HOVER RESET & MODERN UNDERLINE (override) ==== */
+.hero-header .main-nav a,
+.hero-header .main-nav a:link,
+.hero-header .main-nav a:visited,
+.hero-header .main-nav a:hover,
+.hero-header .main-nav a:active {
+  color: #222;
+  text-decoration: none !important; /* kill old underline */
 }
 
-/* Apply the same vertical form layout as the contact form */
-form.contact-form {
-  display: flex;
-  flex-direction: column; /* Align inputs vertically */
-  gap: 1rem;  /* Spacing between form elements */
-  max-width: 600px;
-  margin: 0 auto;
+.hero-header .main-nav a {
+  position: relative;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  padding: 0.25rem 0.1rem; /* a little breathing room */
 }
 
-.spinner {
-  font-size: 1rem;
-  animation: spin 1s linear infinite;
-  display: inline-block;
+.hero-header .main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: var(--eu-blue);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
 }
+
+.hero-header .main-nav a:hover {
+  color: var(--eu-blue);
+}
+
+.hero-header .main-nav a:hover::after {
+  width: 100%;
+}
+
+
+
+
