@@ -18,46 +18,56 @@ document.addEventListener('DOMContentLoaded', () => {
   loadLayoutPart('site-header', 'header.html');
   loadLayoutPart('site-footer', 'footer.html');
 
-  // Only enable scroll-highlighting on devices without hover (phones/tablets)
-  const mobileLike = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  // Phones/tablets only (use OR to include Android correctly)
+  const mobileLike = window.matchMedia('(hover: none), (pointer: coarse)').matches;
   if (!mobileLike) return;
 
-  // Scroll hint for clickable sections (treat as "100% in view" with small tolerance)
+  // Sections
   const sections = document.querySelectorAll('.clickable-section');
   if (sections.length === 0) return;
 
-  const TOL = 2; // CSS px tolerance (covers Android URL bar / rounding)
-  const apply = (el, on) => el.classList.toggle('in-view', on);
+  const TOL = 6; // px tolerance for Android dynamic toolbar & rounding
+  const getVH = () =>
+    (window.visualViewport ? Math.round(window.visualViewport.height) :
+     (window.innerHeight || document.documentElement.clientHeight));
 
   const fullyVisible = (el) => {
     const r = el.getBoundingClientRect();
-    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const vh = getVH();
     const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
-    return visible >= (r.height - TOL);
+    return visible >= (Math.round(r.height) - TOL);
   };
+
+  const apply = (el, on) => el.classList.toggle('in-view', on);
 
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
-          // Don’t trust ratio==1 on Android; measure directly
+          // Don’t rely on ratio==1 on Android; measure directly
           apply(entry.target, fullyVisible(entry.target));
         });
       },
       {
-        // Make sure we get callbacks entering/leaving; exact value doesn’t matter now
-        threshold: [0, 0.01, 0.99, 1],
+        threshold: [0, 0.01, 0.5, 0.99, 1],
         rootMargin: '0px'
       }
     );
     sections.forEach(sec => io.observe(sec));
 
-    // Initial pass
+    // Initial pass so first fully-visible section lights immediately
     requestAnimationFrame(() => {
       sections.forEach(sec => apply(sec, fullyVisible(sec)));
     });
+
+    // Re-check when the visual viewport changes height (Android URL bar show/hide)
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => {
+        sections.forEach(sec => apply(sec, fullyVisible(sec)));
+      }, { passive: true });
+    }
   } else {
-    // Fallback for very old browsers
+    // Fallback
     const onScroll = () => sections.forEach(sec => apply(sec, fullyVisible(sec)));
     ['scroll','resize','orientationchange','pageshow'].forEach(ev =>
       window.addEventListener(ev, onScroll, { passive: true })
@@ -68,10 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Keyboard activation (Enter/Space)
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      const target = document.activeElement;
-      if (target?.classList?.contains('clickable-section')) {
+      const a = document.activeElement;
+      if (a?.classList?.contains('clickable-section')) {
         e.preventDefault();
-        target.click();
+        a.click();
       }
     }
   });
