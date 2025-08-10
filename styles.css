@@ -455,20 +455,16 @@ footer {
   .clickable-section:hover .section-navy       { background-color: var(--navy-light); }
 }
 
-/* Mobile/tablet in-view highlight + TEMP debug outline */
-@media (hover: none) and (pointer: coarse) {
-  .clickable-section.in-view { 
-    outline: 2px dashed magenta; /* remove after testing */
-  }
-  .clickable-section.in-view .section-block {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(0,0,0,.12);
-  }
-  .clickable-section.in-view .section-teal       { background-color: var(--teal-light); }
-  .clickable-section.in-view .section-gold       { background-color: var(--gold-light); }
-  .clickable-section.in-view .section-terracotta { background-color: var(--terracotta-light); }
-  .clickable-section.in-view .section-navy       { background-color: var(--navy-light); }
+  /* In-view highlight (works regardless of device quirk) */
+.clickable-section.in-view .section-block {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.12);
 }
+.clickable-section.in-view .section-teal       { background-color: var(--teal-light); }
+.clickable-section.in-view .section-gold       { background-color: var(--gold-light); }
+.clickable-section.in-view .section-terracotta { background-color: var(--terracotta-light); }
+.clickable-section.in-view .section-navy       { background-color: var(--navy-light); }
+
 
 
 
