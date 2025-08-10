@@ -371,6 +371,69 @@ footer {
   width: 100%;
 }
 
+/* Base layout for links */
+.hero-header .main-nav .nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  text-decoration: none;
+  color: #222;
+  font-weight: 500;
+  padding: .25rem .1rem;
+  position: relative;
+}
+
+/* Icon style (inherits color) */
+.material-symbols-outlined {
+  font-variation-settings: 
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* Default: show labels, tuck icons */
+.nav-icon  { display: none; font-size: 22px; line-height: 1; }
+.nav-label { display: inline; }
+
+/* Keep your underline animation on wide screens */
+.hero-header .main-nav a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: var(--eu-blue);
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+.hero-header .main-nav a:hover { color: var(--eu-blue); }
+.hero-header .main-nav a:hover::after { width: 100%; }
+
+/* Breakpoint: switch to icons on small screens */
+@media (max-width: 820px) {
+  /* Show icons, hide text labels */
+  .nav-icon  { display: inline-flex; }
+  .nav-label { display: none; }
+
+  /* Give icons comfy tap targets and spacing */
+  .hero-header .main-nav {
+    gap: 1rem;
+  }
+  .hero-header .main-nav .nav-link {
+    padding: .5rem;
+  }
+
+  /* Underline under text isn’t useful here; remove for icons */
+  .hero-header .main-nav a::after { display: none; }
+
+  /* Nice hover/tap feedback for icons */
+  @media (hover: hover) and (pointer: fine) {
+    .hero-header .main-nav .nav-link:hover { transform: translateY(-1px); }
+  }
+}
+
 /* =========================
    9. Higlight sections on Mobile Phones
 ========================= */
