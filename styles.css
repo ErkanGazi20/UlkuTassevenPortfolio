@@ -94,11 +94,6 @@ footer {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.section-block:hover {
-  transform: scale(1.02);
-  cursor: pointer;
-}
-
 /* Specific colors */
 .section-teal { background-color: var(--teal); }
 .section-teal:hover { background-color: var(--teal-light); }
@@ -403,11 +398,6 @@ footer {
   }
 }
 
-/* Mobile “in view” hint */
-.clickable-section.in-view .section-block {
-  box-shadow: 0 0 0 2px var(--gold, #C47B51) inset;
-}
-
 /* Make "in view" look like hover (lighter bg + subtle lift) */
 .clickable-section.in-view .section-block {
   transform: translateY(-2px);
@@ -444,6 +434,36 @@ footer {
     animation: none;
   }
 }
+
+/* Anchor block + inner container */
+.clickable-section { display: block; text-decoration: none; -webkit-tap-highlight-color: transparent; }
+.clickable-section .section-block {
+  position: relative;
+  transition: background-color .25s ease, transform .25s ease, box-shadow .25s ease;
+  cursor: pointer;
+}
+
+/* Desktop hover (only on devices that support hover) */
+@media (hover: hover) and (pointer: fine) {
+  .clickable-section:hover .section-block {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  }
+  .clickable-section:hover .section-teal       { background-color: var(--teal-light); }
+  .clickable-section:hover .section-gold       { background-color: var(--gold-light); }
+  .clickable-section:hover .section-terracotta { background-color: var(--terracotta-light); }
+  .clickable-section:hover .section-navy       { background-color: var(--navy-light); }
+}
+
+/* Scroll-in-view = same as hover */
+.clickable-section.in-view .section-block {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.12);
+}
+.clickable-section.in-view .section-teal       { background-color: var(--teal-light); }
+.clickable-section.in-view .section-gold       { background-color: var(--gold-light); }
+.clickable-section.in-view .section-terracotta { background-color: var(--terracotta-light); }
+.clickable-section.in-view .section-navy       { background-color: var(--navy-light); }
 
 
 
