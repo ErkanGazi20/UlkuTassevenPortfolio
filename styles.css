@@ -408,15 +408,21 @@ footer {
   box-shadow: 0 0 0 2px var(--gold, #C47B51) inset;
 }
 
-/* One-time pulse */
-@keyframes sectionPulse {
-  0%   { box-shadow: 0 0 0 0 var(--gold, #C47B51) inset; }
-  50%  { box-shadow: 0 0 0 4px var(--gold, #C47B51) inset; }
-  100% { box-shadow: 0 0 0 2px var(--gold, #C47B51) inset; }
+/* Make "in view" look like hover (lighter bg + subtle lift) */
+.clickable-section.in-view .section-block {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.12);
 }
-.clickable-section.pulse-once .section-block {
-  animation: sectionPulse 650ms ease-out 1;
-}
+
+/* Per-color lightening, same as your :hover colors */
+.clickable-section.in-view .section-teal       { background-color: var(--teal-light); }
+.clickable-section.in-view .section-gold       { background-color: var(--gold-light); }
+.clickable-section.in-view .section-terracotta { background-color: var(--terracotta-light); }
+.clickable-section.in-view .section-navy       { background-color: var(--navy-light); }
+
+/* If you no longer want the gold inset outline, comment this out: */
+/* .clickable-section.in-view .section-block { box-shadow: 0 0 0 2px var(--gold) inset; } */
+
 
 /* Touch feedback */
 .clickable-section:active .section-block {

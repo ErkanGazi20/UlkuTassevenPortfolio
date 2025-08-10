@@ -30,8 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         el.classList.add('in-view');
         if (!seen.has(el)) {
           seen.add(el);
-          el.classList.add('pulse-once');
-          setTimeout(() => el.classList.remove('pulse-once'), 700);
         }
       } else {
         el.classList.remove('in-view');
