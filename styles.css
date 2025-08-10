@@ -455,8 +455,11 @@ footer {
   .clickable-section:hover .section-navy       { background-color: var(--navy-light); }
 }
 
-/* Phones/tablets: scroll-in-view looks like hover */
-@media (hover: none), (pointer: coarse) {
+/* Mobile/tablet in-view highlight + TEMP debug outline */
+@media (hover: none) and (pointer: coarse) {
+  .clickable-section.in-view { 
+    outline: 2px dashed magenta; /* remove after testing */
+  }
   .clickable-section.in-view .section-block {
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(0,0,0,.12);
