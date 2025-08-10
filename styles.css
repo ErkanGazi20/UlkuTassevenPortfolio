@@ -376,6 +376,68 @@ footer {
   width: 100%;
 }
 
+/* =========================
+   9. Higlight sections on Mobile Phones
+========================= */
+
+/* Anchor behaves like a block card and removes default underline */
+.clickable-section {
+  display: block;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Animate the visual container (the inner section) */
+.clickable-section .section-block {
+  position: relative;
+  transition: box-shadow .25s ease, transform .25s ease, background-color .25s ease;
+  outline: 0 solid transparent; /* we’ll use box-shadow for focus */
+  cursor: pointer;
+}
+
+/* Desktop hover hint */
+@media (hover: hover) and (pointer: fine) {
+  .clickable-section:hover .section-block {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  }
+}
+
+/* Mobile “in view” hint */
+.clickable-section.in-view .section-block {
+  box-shadow: 0 0 0 2px var(--gold, #C47B51) inset;
+}
+
+/* One-time pulse */
+@keyframes sectionPulse {
+  0%   { box-shadow: 0 0 0 0 var(--gold, #C47B51) inset; }
+  50%  { box-shadow: 0 0 0 4px var(--gold, #C47B51) inset; }
+  100% { box-shadow: 0 0 0 2px var(--gold, #C47B51) inset; }
+}
+.clickable-section.pulse-once .section-block {
+  animation: sectionPulse 650ms ease-out 1;
+}
+
+/* Touch feedback */
+.clickable-section:active .section-block {
+  transform: translateY(1px);
+}
+
+/* Keyboard focus */
+.clickable-section:focus-visible .section-block {
+  box-shadow: 0 0 0 3px var(--gold, #C47B51) inset;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .clickable-section .section-block,
+  .clickable-section:hover .section-block,
+  .clickable-section:active .section-block {
+    transition: none;
+    transform: none;
+    animation: none;
+  }
+}
 
 
 
