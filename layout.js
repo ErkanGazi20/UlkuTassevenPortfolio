@@ -22,44 +22,42 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileLike = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   if (!mobileLike) return;
 
-  // Scroll hint for clickable sections
+  // Scroll hint for clickable sections (require ~100% visibility)
   const sections = document.querySelectorAll('.clickable-section');
   if (sections.length === 0) return;
 
   const apply = (el, on) => el.classList.toggle('in-view', on);
 
+  // Helper for initial pass / fallback (allow tiny tolerance for mobile UI bars)
+  const fullyVisible = (el) => {
+    const r = el.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    return r.top >= 0 && r.bottom <= (vh + 1);
+  };
+
   if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const on = entry.isIntersecting && entry.intersectionRatio >= 0.2;
-        apply(entry.target, on);
-      });
-    }, {
-      threshold: [0, 0.2, 0.5, 1],
-      rootMargin: '0px 0px -20% 0px'
-    });
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          const fully = entry.isIntersecting && entry.intersectionRatio >= 0.999;
+          apply(entry.target, fully);
+        });
+      },
+      {
+        threshold: [1],      // fire when 100% visible
+        rootMargin: '0px'    // true 100%, no margins
+      }
+    );
 
     sections.forEach(sec => io.observe(sec));
 
-    // Initial pass so first visible section highlights immediately
+    // Initial pass so the first fully-visible section highlights immediately
     requestAnimationFrame(() => {
-      sections.forEach(sec => {
-        const r = sec.getBoundingClientRect();
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
-        const on = (visible / Math.max(1, r.height)) >= 0.2;
-        apply(sec, on);
-      });
+      sections.forEach(sec => apply(sec, fullyVisible(sec)));
     });
   } else {
     // Fallback for very old browsers
-    const inView = (el) => {
-      const r = el.getBoundingClientRect();
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
-      return (visible / Math.max(1, r.height)) >= 0.2;
-    };
-    const onScroll = () => sections.forEach(el => apply(el, inView(el)));
+    const onScroll = () => sections.forEach(sec => apply(sec, fullyVisible(sec)));
     ['scroll','resize','orientationchange','pageshow'].forEach(ev =>
       window.addEventListener(ev, onScroll, { passive: true })
     );
