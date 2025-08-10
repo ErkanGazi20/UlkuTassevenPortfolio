@@ -411,27 +411,20 @@ footer {
 .hero-header .main-nav a:hover { color: var(--eu-blue); }
 .hero-header .main-nav a:hover::after { width: 100%; }
 
-/* Breakpoint: switch to icons on small screens */
+/* Base: show labels, hide icons */
+.hero-header .main-nav .nav-link .nav-icon  { display: none; font-size: 22px; line-height: 1; }
+.hero-header .main-nav .nav-link .nav-label { display: inline; }
+
+/* Swap to icons on narrow screens */
 @media (max-width: 820px) {
-  /* Show icons, hide text labels */
-  .nav-icon  { display: inline-flex; }
-  .nav-label { display: none; }
+  .hero-header .main-nav { gap: 1rem; }
+  .hero-header .main-nav .nav-link { padding: .5rem; }
 
-  /* Give icons comfy tap targets and spacing */
-  .hero-header .main-nav {
-    gap: 1rem;
-  }
-  .hero-header .main-nav .nav-link {
-    padding: .5rem;
-  }
+  .hero-header .main-nav .nav-link .nav-icon  { display: inline-flex; }
+  .hero-header .main-nav .nav-link .nav-label { display: none; }
 
-  /* Underline under text isn’t useful here; remove for icons */
+  /* Underline off for icons */
   .hero-header .main-nav a::after { display: none; }
-
-  /* Nice hover/tap feedback for icons */
-  @media (hover: hover) and (pointer: fine) {
-    .hero-header .main-nav .nav-link:hover { transform: translateY(-1px); }
-  }
 }
 
 /* =========================
