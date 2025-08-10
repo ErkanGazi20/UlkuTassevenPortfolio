@@ -18,56 +18,55 @@ document.addEventListener('DOMContentLoaded', () => {
   loadLayoutPart('site-header', 'header.html');
   loadLayoutPart('site-footer', 'footer.html');
 
- // Mobile scroll hint for clickable sections
-document.addEventListener('DOMContentLoaded', () => {
-  let sections = document.querySelectorAll('.clickable-section');
+  // Only enable scroll-highlighting on devices without hover (phones/tablets)
+  const mobileLike = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  if (!mobileLike) return;
+
+  // Scroll hint for clickable sections
+  const sections = document.querySelectorAll('.clickable-section');
   if (sections.length === 0) return;
 
-  const seen = new WeakSet();
-
-  const apply = (el, on) => {
-    if (on) {
-      el.classList.add('in-view');
-      if (!seen.has(el)) {
-        seen.add(el);
-        // no pulse; keep it calm
-      }
-    } else {
-      el.classList.remove('in-view');
-    }
-  };
+  const apply = (el, on) => el.classList.toggle('in-view', on);
 
   if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          // Trigger when ~15% visible, and keep it while it stays in
-          apply(entry.target, entry.isIntersecting && entry.intersectionRatio >= 0.15);
-        });
-      },
-      {
-        threshold: [0, 0.15, 0.35, 0.65, 1],
-        // start a little earlier; account for mobile URL bar dynamics
-        rootMargin: '0px 0px -20% 0px'
-      }
-    );
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const on = entry.isIntersecting && entry.intersectionRatio >= 0.2;
+        apply(entry.target, on);
+      });
+    }, {
+      threshold: [0, 0.2, 0.5, 1],
+      rootMargin: '0px 0px -20% 0px'
+    });
+
     sections.forEach(sec => io.observe(sec));
+
+    // Initial pass so first visible section highlights immediately
+    requestAnimationFrame(() => {
+      sections.forEach(sec => {
+        const r = sec.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+        const on = (visible / Math.max(1, r.height)) >= 0.2;
+        apply(sec, on);
+      });
+    });
   } else {
-    // Fallback: simple scroll check
+    // Fallback for very old browsers
     const inView = (el) => {
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
-      const elVisible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
-      const ratio = elVisible / Math.max(1, r.height);
-      return ratio >= 0.15;
+      const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+      return (visible / Math.max(1, r.height)) >= 0.2;
     };
     const onScroll = () => sections.forEach(el => apply(el, inView(el)));
-    ['scroll', 'resize', 'orientationchange', 'pageshow'].forEach(ev => window.addEventListener(ev, onScroll, { passive: true }));
-    onScroll(); // initial pass
+    ['scroll','resize','orientationchange','pageshow'].forEach(ev =>
+      window.addEventListener(ev, onScroll, { passive: true })
+    );
+    onScroll();
   }
-});
 
-  // Keyboard activation (Enter/Space) for section-links
+  // Keyboard activation (Enter/Space)
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       const target = document.activeElement;

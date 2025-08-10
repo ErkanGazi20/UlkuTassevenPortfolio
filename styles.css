@@ -455,15 +455,17 @@ footer {
   .clickable-section:hover .section-navy       { background-color: var(--navy-light); }
 }
 
-/* Scroll-in-view = same as hover */
-.clickable-section.in-view .section-block {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(0,0,0,.12);
+/* Phones/tablets: scroll-in-view looks like hover */
+@media (hover: none), (pointer: coarse) {
+  .clickable-section.in-view .section-block {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  }
+  .clickable-section.in-view .section-teal       { background-color: var(--teal-light); }
+  .clickable-section.in-view .section-gold       { background-color: var(--gold-light); }
+  .clickable-section.in-view .section-terracotta { background-color: var(--terracotta-light); }
+  .clickable-section.in-view .section-navy       { background-color: var(--navy-light); }
 }
-.clickable-section.in-view .section-teal       { background-color: var(--teal-light); }
-.clickable-section.in-view .section-gold       { background-color: var(--gold-light); }
-.clickable-section.in-view .section-terracotta { background-color: var(--terracotta-light); }
-.clickable-section.in-view .section-navy       { background-color: var(--navy-light); }
 
 
 
