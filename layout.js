@@ -22,36 +22,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileLike = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
   if (!mobileLike) return;
 
-  // Scroll hint for clickable sections (require ~100% visibility)
+  // Scroll hint for clickable sections (treat as "100% in view" with small tolerance)
   const sections = document.querySelectorAll('.clickable-section');
   if (sections.length === 0) return;
 
+  const TOL = 2; // CSS px tolerance (covers Android URL bar / rounding)
   const apply = (el, on) => el.classList.toggle('in-view', on);
 
-  // Helper for initial pass / fallback (allow tiny tolerance for mobile UI bars)
   const fullyVisible = (el) => {
     const r = el.getBoundingClientRect();
     const vh = window.innerHeight || document.documentElement.clientHeight;
-    return r.top >= 0 && r.bottom <= (vh + 1);
+    const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+    return visible >= (r.height - TOL);
   };
 
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach(entry => {
-          const fully = entry.isIntersecting && entry.intersectionRatio >= 0.999;
-          apply(entry.target, fully);
+          // Don’t trust ratio==1 on Android; measure directly
+          apply(entry.target, fullyVisible(entry.target));
         });
       },
       {
-        threshold: [1],      // fire when 100% visible
-        rootMargin: '0px'    // true 100%, no margins
+        // Make sure we get callbacks entering/leaving; exact value doesn’t matter now
+        threshold: [0, 0.01, 0.99, 1],
+        rootMargin: '0px'
       }
     );
-
     sections.forEach(sec => io.observe(sec));
 
-    // Initial pass so the first fully-visible section highlights immediately
+    // Initial pass
     requestAnimationFrame(() => {
       sections.forEach(sec => apply(sec, fullyVisible(sec)));
     });
@@ -68,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       const target = document.activeElement;
-      if (target && target.classList && target.classList.contains('clickable-section')) {
+      if (target?.classList?.contains('clickable-section')) {
         e.preventDefault();
         target.click();
       }
