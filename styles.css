@@ -123,21 +123,21 @@ footer {
   color: #fff;
 }
 
-#sectiontheUnitraWay section {
-  display: flex;
-  align-items: center;
-  gap: 2rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-  padding: 2rem;
-  border-radius: 12px;
-  background-color: var(--teal);
-}
++ #sectiontheUnitraWay section:not(.section-block) {
+   display: flex;
+   align-items: center;
+   gap: 2rem;
+   margin-bottom: 3rem;
+   flex-wrap: wrap;
+   padding: 2rem;
+   border-radius: 12px;
+   background-color: var(--teal);
+ }
 
-#sectiontheUnitraWay section:nth-child(even) {
-  flex-direction: row-reverse;
-  background-color: var(--teal-light);
-}
++ #sectiontheUnitraWay section:not(.section-block):nth-of-type(even) {
+   flex-direction: row-reverse;
+   background-color: var(--teal-light);
+ }
 
 #sectiontheUnitraWay .content {
   flex: 1;
