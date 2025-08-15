@@ -1,35 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact | Eunitra Consultancy</title>
-  <link rel="stylesheet" href="styles.css?v=11">
-<script src="layout.js?v=11" defer></script>
+  <link rel="stylesheet" href="styles.css?v=18">
+<script src="layout.js?v=18" defer></script>
 </head>
 <body>
 
   <!-- Header placeholder -->
   <div id="site-header"></div>
 
- <!-- Main Section -->
-<main class="contact-strip">
+  <!-- Main Section -->
+  <main class="contact-strip">
+    <div class="contact-container">
+      <h2>Get in Touch</h2>
 
-  <div class="contact-container">
-    <h2>Get in Touch</h2>
-    <form class="contact-form" id="contact-form" method="post">
-      <input type="text" name="name" id="contact-name" placeholder="Your Name" class="form-input" required />
-      <input type="email" name="email" id="contact-email" placeholder="Your Email" class="form-input" required />      
-      <input type="text" name="subject" placeholder="Subject" class="form-input" required />
-      <textarea name="message" rows="5" placeholder="Your Message" class="form-textarea" required></textarea>
-      <button type="submit" class="form-button">Send Message</button>
-    </form>
-  </div>
+      <!-- Honeypot anti-spam field (hidden from humans) -->
+<form class="contact-form" id="contact-form"
+      action="https://formspree.io/f/xldlvzda" method="POST" novalidate>
+  <input type="text"   name="name"     id="contact-name"    placeholder="Your Name"    class="form-input" required autocomplete="name" />
+  <input type="email"  name="email"    id="contact-email"   placeholder="Your Email"   class="form-input" required autocomplete="email" />
+  <input type="text"   name="subject"  id="contact-subject" placeholder="Subject"      class="form-input" required />
+  <textarea            name="message"  id="contact-message" rows="5" placeholder="Your Message" class="form-textarea" required></textarea>
 
-</main>
+  <!-- Honeypot -->
+  <input type="text" name="company" id="contact-company" autocomplete="off" tabindex="-1"
+         style="position:absolute;left:-9999px;opacity:0;" />
+
+  <button type="submit" class="form-button" id="contact-submit">Send Message</button>
+  <div id="form-status" class="form-status" aria-live="polite" style="min-height:1.25rem;"></div>
+</form>
 
 
-   <!-- Footer placeholder -->
+      <p style="margin-top:.75rem;font-size:.9rem;opacity:.8;">We’ll reply to the email address you provide.</p>
+    </div>
+  </main>
+
+  <!-- Footer placeholder -->
   <div id="site-footer"></div>
 </body>
 </html>

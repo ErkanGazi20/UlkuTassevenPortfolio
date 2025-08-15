@@ -5,12 +5,87 @@ function loadLayoutPart(id, file) {
     return;
   }
   fetch(file)
-    .then(r => {
-      if (!r.ok) throw new Error(`${r.status} ${r.statusText}`);
-      return r.text();
-    })
+    .then(r => { if (!r.ok) throw new Error(`${r.status} ${r.statusText}`); return r.text(); })
     .then(html => { host.innerHTML = html; })
     .catch(err => console.error('Error loading layout:', err));
+}
+
+/* ---------- Contact form: send WITHOUT opening email (Formspree) ----------
+
+1) Create a free form at https://formspree.io/ and copy your endpoint URL.
+   It looks like: https://formspree.io/f/xxxxabcd
+
+2) Paste it in FORMSPREE_ENDPOINT below.
+
+3) On submit we POST JSON via fetch, show success message, and reset the form.
+
+--------------------------------------------------------------------------- */
+
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xldlvzda'; // ← change this once
+
+function wireContactFormToFormspree() {
+  const form   = document.getElementById('contact-form');
+  if (!form) return;
+
+  const status = document.getElementById('form-status');
+  const btn    = document.getElementById('contact-submit');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Honeypot
+    const honey = document.getElementById('contact-company');
+    if (honey && honey.value.trim() !== '') return;
+
+    // Simple front-end validation
+    const name    = document.getElementById('contact-name')?.value?.trim();
+    const email   = document.getElementById('contact-email')?.value?.trim();
+    const message = document.getElementById('contact-message')?.value?.trim();
+    if (!name || !email || !message) {
+      if (status) status.textContent = 'Please fill your name, email, and message.';
+      return;
+    }
+
+    // Build real form data (mimics browser submit)
+    const fd = new FormData(form);
+    fd.append('_page', location.href);
+
+    // UI → sending
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+    if (status) { status.textContent = ''; status.classList.remove('success','error'); }
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: fd,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      // Parse any JSON response (errors included)
+      let data = {};
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        const msg = (data?.errors?.length)
+          ? data.errors.map(e => e.message).join(', ')
+          : `Error ${res.status}`;
+        throw new Error(msg);
+      }
+
+      // Success
+      if (status) { status.textContent = 'Thanks! Your message has been sent.'; status.classList.add('success'); }
+      form.reset();
+    } catch (err) {
+      console.error('Contact submit failed:', err);
+      if (status) {
+        status.textContent = 'Submit failed: ' + (err?.message || 'Unknown error') +
+          '. If this is your first time, check Formspree verification email.';
+        status.classList.add('error');
+      }
+    } finally {
+      if (btn) { btn.disabled = false; btn.textContent = 'Send Message'; }
+    }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -18,64 +93,37 @@ document.addEventListener('DOMContentLoaded', () => {
   loadLayoutPart('site-header', 'header.html');
   loadLayoutPart('site-footer', 'footer.html');
 
-  // Phones/tablets only (use OR to include Android correctly)
+  // ---- In-view highlight for clickable cards (mobile-like devices) ----
   const mobileLike = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-  if (!mobileLike) return;
-
-  // Sections
-  const sections = document.querySelectorAll('.clickable-section');
-  if (sections.length === 0) return;
-
-  const TOL = 6; // px tolerance for Android dynamic toolbar & rounding
-  const getVH = () =>
-    (window.visualViewport ? Math.round(window.visualViewport.height) :
-     (window.innerHeight || document.documentElement.clientHeight));
-
-  const fullyVisible = (el) => {
-    const r = el.getBoundingClientRect();
-    const vh = getVH();
-    const visible = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
-    return visible >= (Math.round(r.height) - TOL);
-  };
-
-  const apply = (el, on) => el.classList.toggle('in-view', on);
-
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          // Don’t rely on ratio==1 on Android; measure directly
-          apply(entry.target, fullyVisible(entry.target));
+  if (mobileLike) {
+    const cards = document.querySelectorAll('.clickable-section');
+    if (cards.length) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const on = entry.isIntersecting && entry.intersectionRatio >= 0.2;
+          entry.target.classList.toggle('in-view', on);
         });
-      },
-      {
-        threshold: [0, 0.01, 0.5, 0.99, 1],
-        rootMargin: '0px'
+      }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: [0, 0.2, 0.5, 1] });
+      cards.forEach((el) => io.observe(el));
+
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', () => {
+          cards.forEach((el) => {
+            const rect = el.getBoundingClientRect();
+            const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+            const visible = Math.max(0, Math.min(rect.bottom, vh) - Math.max(rect.top, 0));
+            const on = visible / Math.max(1, rect.height) >= 0.2;
+            el.classList.toggle('in-view', on);
+          });
+        }, { passive: true });
       }
-    );
-    sections.forEach(sec => io.observe(sec));
-
-    // Initial pass so first fully-visible section lights immediately
-    requestAnimationFrame(() => {
-      sections.forEach(sec => apply(sec, fullyVisible(sec)));
-    });
-
-    // Re-check when the visual viewport changes height (Android URL bar show/hide)
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', () => {
-        sections.forEach(sec => apply(sec, fullyVisible(sec)));
-      }, { passive: true });
     }
-  } else {
-    // Fallback
-    const onScroll = () => sections.forEach(sec => apply(sec, fullyVisible(sec)));
-    ['scroll','resize','orientationchange','pageshow'].forEach(ev =>
-      window.addEventListener(ev, onScroll, { passive: true })
-    );
-    onScroll();
   }
 
-  // Keyboard activation (Enter/Space)
+ // Enable form sending without opening email
+  wireContactFormToFormspree();
+
+  // Accessibility: allow Enter/Space on focusable cards
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       const a = document.activeElement;
