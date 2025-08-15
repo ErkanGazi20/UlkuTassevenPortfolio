@@ -37,9 +37,7 @@ header.hero-header {
   text-align: center;
 }
 
-.logo-container {
-  margin-bottom: 0.5rem;
-}
+.logo-container { margin-bottom: 0.5rem; }
 
 .logo-image {
   display: block;
@@ -63,8 +61,6 @@ header.hero-header {
   transition: color 0.3s;
 }
 
-
-
 /* =========================
    3. FOOTER
 ========================= */
@@ -79,10 +75,7 @@ footer {
 /* =========================
    4. SECTION BLOCKS (Home)
 ========================= */
-.section-link {
-  text-decoration: none;
-  color: inherit;
-}
+.section-link { text-decoration: none; color: inherit; }
 
 .section-block {
   display: flex;
@@ -123,37 +116,28 @@ footer {
   color: #fff;
 }
 
-+ #sectiontheUnitraWay section:not(.section-block) {
-   display: flex;
-   align-items: center;
-   gap: 2rem;
-   margin-bottom: 3rem;
-   flex-wrap: wrap;
-   padding: 2rem;
-   border-radius: 12px;
-   background-color: var(--teal);
- }
-
-+ #sectiontheUnitraWay section:not(.section-block):nth-of-type(even) {
-   flex-direction: row-reverse;
-   background-color: var(--teal-light);
- }
-
-#sectiontheUnitraWay .content {
-  flex: 1;
-  min-width: 300px;
+/* IMPORTANT: only style direct child sections, not the CTA's nested <section> */
+#sectiontheUnitraWay > section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  padding: 2rem;
+  border-radius: 12px;
+  background-color: var(--teal);
 }
 
-#sectiontheUnitraWay h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
+#sectiontheUnitraWay > section:nth-of-type(even) {
+  flex-direction: row-reverse;
+  background-color: var(--teal-light);
 }
 
-#sectiontheUnitraWay p {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
+#sectiontheUnitraWay .content { flex: 1; min-width: 300px; }
+
+#sectiontheUnitraWay h2 { font-size: 1.8rem; margin-bottom: 1rem; }
+
+#sectiontheUnitraWay p { font-size: 1rem; line-height: 1.6; margin-bottom: 1rem; }
 
 #sectiontheUnitraWay .image {
   flex: 1;
@@ -172,10 +156,7 @@ footer {
    6. "How We Help" & Contact
 ========================= */
 /* Reusable strip layout (used by both pages) */
-.strip {
-  padding: 3rem 1.5rem;
-  color: #fff;
-}
+.strip { padding: 3rem 1.5rem; color: #fff; }
 
 /* Card-like sections inside a strip */
 .strip section {
@@ -191,45 +172,24 @@ footer {
   transition: transform 0.2s ease;
 }
 
-.strip section:hover {
-  transform: translateY(-2px);
-}
+.strip section:hover { transform: translateY(-2px); }
 
 .strip section:nth-child(even) {
   flex-direction: row-reverse;
   background-color: var(--strip-bg-alt, var(--teal-light));
 }
 
-.strip .content {
-  flex: 1;
-  min-width: 300px;
-}
+.strip .content { flex: 1; min-width: 300px; }
 
-.strip h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
+.strip h2 { font-size: 1.8rem; margin-bottom: 1rem; }
 
-.strip p,
-.strip li {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 0.5rem;
-}
+.strip p, .strip li { font-size: 1rem; line-height: 1.6; margin-bottom: 0.5rem; }
 
 /* Optional list styling for steps */
-.strip ul.steps {
-  margin: 0.5rem 0 0;
-  padding-left: 1.25rem;
-}
+.strip ul.steps { margin: 0.5rem 0 0; padding-left: 1.25rem; }
 
-/* Image placeholder / slot */
-.strip .image {
-  flex: 1;
-  min-width: 250px;
-  display: flex;
-  justify-content: center;
-}
+/* Image slot */
+.strip .image { flex: 1; min-width: 250px; display: flex; justify-content: center; }
 
 .strip .image img {
   max-width: 100%;
@@ -255,11 +215,7 @@ footer {
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.contact-container h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: var(--navy);
-}
+.contact-container h2 { text-align: center; margin-bottom: 1.5rem; color: var(--navy); }
 
 /* Page-specific color themes */
 #sectiontheUnitraWay.strip {
@@ -272,83 +228,34 @@ footer {
   --strip-bg-alt: var(--gold-light);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .strip section { flex-direction: column !important; }
-}
-
-
-.section-white {
-  background-color: var(--navy);
-  padding: 2rem;
-  color: white;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.contact-form .form-input,
-.contact-form .form-textarea {
-  padding: 0.4rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-family: inherit;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-}
-
-.contact-form .form-button {
-  padding: 0.75rem;
-  background-color: #000;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.contact-form .form-button:hover {
-  background-color: #444;
-}
-
 /* =========================
    7. RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
-  .main-nav {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  #sectiontheUnitraWay section {
-    flex-direction: column !important;
-  }
+  .main-nav { flex-direction: column; gap: 1rem; }
+  #sectiontheUnitraWay > section { flex-direction: column !important; }
+  .strip section { flex-direction: column !important; }
 }
 
 /* =========================
    8. Nav Link animation
 ========================= */
 
-/* ==== NAV HOVER RESET & MODERN UNDERLINE (override) ==== */
+/* NAV HOVER RESET & MODERN UNDERLINE */
 .hero-header .main-nav a,
 .hero-header .main-nav a:link,
 .hero-header .main-nav a:visited,
 .hero-header .main-nav a:hover,
 .hero-header .main-nav a:active {
   color: #222;
-  text-decoration: none !important; /* kill old underline */
+  text-decoration: none !important;
 }
 
 .hero-header .main-nav a {
   position: relative;
   font-weight: 500;
   transition: color 0.3s ease;
-  padding: 0.25rem 0.1rem; /* a little breathing room */
+  padding: 0.25rem 0.1rem;
 }
 
 .hero-header .main-nav a::after {
@@ -363,13 +270,8 @@ footer {
   transition: width 0.3s ease;
 }
 
-.hero-header .main-nav a:hover {
-  color: var(--eu-blue);
-}
-
-.hero-header .main-nav a:hover::after {
-  width: 100%;
-}
+.hero-header .main-nav a:hover { color: var(--eu-blue); }
+.hero-header .main-nav a:hover::after { width: 100%; }
 
 /* Base layout for links */
 .hero-header .main-nav .nav-link {
@@ -383,57 +285,54 @@ footer {
   position: relative;
 }
 
-/* your existing mobile stack… */
 @media (max-width: 768px) {
   .main-nav {
     flex-direction: column;
     gap: 1rem;
-    align-items: center;        /* NEW: stop stretching to full width */
+    align-items: center;
   }
   .hero-header .main-nav a {
-    width: max-content;         /* NEW: shrink to text width */
-    display: inline-block;      /* ensures ::after measures this width */
+    width: max-content;
+    display: inline-block;
   }
 }
 
 /* =========================
-   9. Highlight sections on Mobile Phones
+   9. Highlight sections (desktop hover + mobile in-view)
 ========================= */
 
-/* Anchor behaves like a block card and removes default underline */
+/* Anchor behaves like a block card */
 .clickable-section {
   display: block;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Animate the visual container (the inner section) */
+/* Animate the visual container */
 .clickable-section .section-block {
   position: relative;
   cursor: pointer;
-  /* IMPORTANT: include opacity here so the fade actually animates */
   transition: background-color .25s ease, transform .25s ease, box-shadow .25s ease, opacity .25s ease;
 }
 
-/* Desktop hover (only on devices that support hover) */
+/* Desktop hover */
 @media (hover: hover) and (pointer: fine) {
   .clickable-section:hover .section-block {
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(0,0,0,.12);
-    opacity: .75; /* ← the fade */
+    opacity: .75; /* fade */
   }
-
-  /* Per-color lightening */
   .clickable-section:hover .section-teal       { background-color: var(--teal-light); }
   .clickable-section:hover .section-gold       { background-color: var(--gold-light); }
   .clickable-section:hover .section-terracotta { background-color: var(--terracotta-light); }
   .clickable-section:hover .section-navy       { background-color: var(--navy-light); }
 }
 
-/* “In-view” state (optional) */
+/* Mobile/any device: highlight when scrolled into view */
 .clickable-section.in-view .section-block {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0,0,0,.12);
+  opacity: .85;
 }
 .clickable-section.in-view .section-teal       { background-color: var(--teal-light); }
 .clickable-section.in-view .section-gold       { background-color: var(--gold-light); }
@@ -441,9 +340,7 @@ footer {
 .clickable-section.in-view .section-navy       { background-color: var(--navy-light); }
 
 /* Touch feedback */
-.clickable-section:active .section-block {
-  transform: translateY(1px);
-}
+.clickable-section:active .section-block { transform: translateY(1px); }
 
 /* Keyboard focus */
 .clickable-section:focus-visible .section-block {
@@ -460,3 +357,39 @@ footer {
     animation: none;
   }
 }
+
+/* Utility (optional): a white-on-navy section block */
+.section-white {
+  background-color: var(--navy);
+  padding: 2rem;
+  color: white;
+}
+
+/* Contact form */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.contact-form .form-input,
+.contact-form .form-textarea {
+  padding: 0.4rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.contact-form .form-button {
+  padding: 0.75rem;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.contact-form .form-button:hover { background-color: #444; }
