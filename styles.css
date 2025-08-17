@@ -393,3 +393,174 @@ footer {
   transition: background-color 0.3s ease;
 }
 .contact-form .form-button:hover { background-color: #444; }
+
+/* === How We Help: bordered cards on a light shell === */
+
+/* Make the page background match the footer and use dark text */
+#sectionhowWeHelp.strip {
+  background-color: #fdfcfc; /* same as footer */
+  color: #222;               /* readable on light bg */
+}
+
+/* Turn each section into a card with a colored border (no fill) */
+#sectionhowWeHelp.strip section {
+  background-color: transparent;                 /* remove fill */
+  border: 2px solid var(--strip-bg, var(--teal));
+  border-radius: 12px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+/* Keep the alternating layout and use the alt color for even sections' borders */
+#sectionhowWeHelp.strip section:nth-child(even) {
+  flex-direction: row-reverse;
+  border-color: var(--strip-bg-alt, var(--teal-light));
+}
+
+/* A little lift on hover (optional) */
+#sectionhowWeHelp.strip section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+}
+/* === How We Help: CTA fills on hover/in-view with lighter brand color === */
+
+/* Default: keep the CTA looking like the other bordered cards (no fill) */
+#sectionhowWeHelp.strip .clickable-section .section-block {
+  background-color: transparent;
+  border: 2px solid var(--strip-bg, var(--teal));
+  border-radius: 12px;
+  transition: background-color .25s ease, transform .25s ease, box-shadow .25s ease;
+}
+
+/* Hover (desktop) and "in-view" (mobile): fill whole section with lighter shade */
+#sectionhowWeHelp.strip .clickable-section:hover .section-block,
+#sectionhowWeHelp.strip .clickable-section.in-view .section-block {
+  background-color: var(--strip-bg-alt, var(--teal-light)); /* e.g., gold-light on this page */
+  border-color: var(--strip-bg-alt, var(--teal-light));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.10);
+}
+
+/* Optional: ensure readable text on the lighter fill */
+#sectionhowWeHelp.strip .clickable-section:hover .section-block h3,
+#sectionhowWeHelp.strip .clickable-section:hover .section-block p,
+#sectionhowWeHelp.strip .clickable-section.in-view .section-block h3,
+#sectionhowWeHelp.strip .clickable-section.in-view .section-block p {
+  color: #222;
+}
+.video-frame { position: relative; }
+.video-frame video { display:block; width:100%; height:100%; object-fit:contain; background:#000; }
+
+/* Big overlay play button */
+.play-btn{
+  position:absolute;
+  inset:0;                       /* cover the whole frame */
+  display:grid;
+  place-items:center;
+  background:rgba(0,0,0,.35);
+  border:0;
+  cursor:pointer;
+  z-index:2;                     /* sit above the video */
+  transition:background .2s ease, opacity .2s ease;
+}
+.video-frame:hover .play-btn{ background:rgba(0,0,0,.45); }
+
+/* Circle + triangle icon */
+.play-btn::before{
+  content:"";
+  width:68px; height:68px;
+  border-radius:50%;
+  background:rgba(255,255,255,.95);
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+.play-btn::after{
+  content:"";
+  position:absolute;
+  border-style:solid;
+  border-width:12px 0 12px 20px;
+  border-color:transparent transparent transparent #000;
+  margin-left:6px;
+}
+
+/* Hide overlay only when the inline video itself is playing */
+.video-frame.playing .play-btn{ opacity:0; pointer-events:none; }
+
+/* Portrait-friendly inline frame (letterboxed, no crop) */
+.video-frame.portrait {
+  position: relative;
+  width: 100%;
+  max-width: clamp(220px, 28vw, 360px); /* nice narrow card on desktop */
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+  background: #000;
+}
+.video-frame.portrait video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* show full portrait video */
+  background: #000;
+}
+
+/* Lightbox overlay (always centered) */
+.video-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.9);
+  display: none;
+}
+.video-lightbox.open { display: block; }
+.video-lightbox .vlb-body {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;     /* centers the video */
+  padding: 4vmin;
+}
+
+/* Size by viewport height so a tall video isn’t cropped or off-screen */
+.video-lightbox video {
+  height: 92vh;            /* fit height */
+  width: auto;             /* keep portrait ratio */
+  max-width: 96vw;         /* don’t overflow horizontally */
+  object-fit: contain;
+  background: #000;
+  border-radius: 12px;
+}
+
+/* Lightbox stacking so the × is clickable */
+.video-lightbox { position: fixed; inset: 0; z-index: 9999; }
+
+.video-lightbox .vlb-body {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 4vmin;
+  z-index: 1;            /* below the close button */
+}
+
+/* Make the close button fixed and above the body/video */
+.vlb-close {
+  position: fixed;       /* not absolute */
+  top: 16px;
+  right: 16px;
+  z-index: 2;            /* above everything in the lightbox */
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.95);
+  color: #000;
+  font-size: 26px;
+  line-height: 44px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+
+
+/* Scroll lock while lightbox is open */
+html.lb-open, body.lb-open { overflow: hidden; }
+
