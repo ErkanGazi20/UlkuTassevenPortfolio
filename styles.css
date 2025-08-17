@@ -100,12 +100,10 @@ footer {
 .section-navy { background-color: var(--navy); }
 .section-navy:hover { background-color: var(--navy-light); }
 
-/* Banner Image */
 .section-image {
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  object-position: center;
+  display: block;
+  width: 100%;   /* scale to container width */
+  height: auto;  /* keep aspect ratio, no crop */
 }
 
 /* =========================
