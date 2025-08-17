@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>İletişim | Eunitra Danışmanlık</title>
+  <link rel="stylesheet" href="../styles.css?v=22">
+  <script src="../layout.js?v=22" defer></script>
+</head>
+<body>
+
+  <!-- Header placeholder -->
+  <div id="site-header"></div>
+
+  <!-- Ana Bölüm -->
+  <main class="contact-strip">
+    <div class="contact-container">
+      <h2>Bize Ulaşın</h2>
+
+      <!-- Honeypot anti-spam (kullanıcılardan gizli) -->
+      <form class="contact-form" id="contact-form"
+            action="https://formspree.io/f/xldlvzda" method="POST" novalidate>
+        <input type="text"   name="name"     id="contact-name"    placeholder="Adınız"                class="form-input" required autocomplete="name" />
+        <input type="email"  name="email"    id="contact-email"   placeholder="E-posta Adresiniz"     class="form-input" required autocomplete="email" />
+        <input type="text"   name="subject"  id="contact-subject" placeholder="Konu"                  class="form-input" required />
+        <textarea            name="message"  id="contact-message" rows="5" placeholder="Mesajınız"    class="form-textarea" required></textarea>
+
+        <!-- Honeypot -->
+        <input type="text" name="company" id="contact-company" autocomplete="off" tabindex="-1"
+               style="position:absolute;left:-9999px;opacity:0;" />
+
+        <button type="submit" class="form-button" id="contact-submit">Mesajı Gönder</button>
+        <div id="form-status" class="form-status" aria-live="polite" style="min-height:1.25rem;"></div>
+      </form>
+
+      <p style="margin-top:.75rem;font-size:.9rem;opacity:.8;">Yanıtı sağladığınız e-posta adresine göndereceğiz.</p>
+    </div>
+  </main>
+
+  <!-- Footer placeholder -->
+  <div id="site-footer"></div>
+</body>
+</html>
