@@ -303,3 +303,10 @@ document.addEventListener('DOMContentLoaded', function () {
   wireCardKeyboardActivation();
   wireVideoLightbox();
 });
+
+document.querySelectorAll('.video-frame').forEach(frame => {
+  const v = frame.querySelector('video');
+  if (v && v.poster && !frame.style.getPropertyValue('--poster')) {
+    frame.style.setProperty('--poster', `url("${v.poster}")`);
+  }
+});

@@ -10,7 +10,7 @@
 html, body {
   min-height: 100vh;
   font-family: Arial, sans-serif;
-  background: #fff;
+  background: #fdfcfc;
   color: #222;
   display: flex;
   flex-direction: column;
@@ -32,7 +32,7 @@ html, body {
    2. HEADER & NAVIGATION
 ========================= */
 header.hero-header {
-  background-color: #fff;
+  background-color: #fdfcfc;;
   padding: 2rem 1rem 1rem;
   text-align: center;
 }
@@ -50,7 +50,7 @@ header.hero-header {
   display: flex;
   justify-content: center;
   gap: 2rem;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #fdfcfc;
   padding-top: 1rem;
 }
 
@@ -111,7 +111,7 @@ footer {
 ========================= */
 #sectiontheUnitraWay {
   padding: 3rem 1.5rem;
-  color: #fff;
+  color: #fdfcfc;;
 }
 
 /* IMPORTANT: only style direct child sections, not the CTA's nested <section> */
@@ -154,7 +154,7 @@ footer {
    6. "How We Help" & Contact
 ========================= */
 /* Reusable strip layout (used by both pages) */
-.strip { padding: 3rem 1.5rem; color: #fff; }
+.strip { padding: 3rem 1.5rem; color: #fdfcfc;; }
 
 /* Card-like sections inside a strip */
 .strip section {
@@ -205,7 +205,7 @@ footer {
 }
 
 .contact-container {
-  background: white;
+  background: #f5f4f4;;
   border-radius: 12px;
   padding: 2rem;
   max-width: 700px;
@@ -295,6 +295,25 @@ footer {
   }
 }
 
+/* Header divide */
+:root {
+  --divider-color: #e6e6e6;
+  --divider-width: clamp(320px, 64vw, 900px); /* adjust to taste */
+}
+
+/* header spacing only */
+header.hero-header { padding-bottom: 1.25rem; }
+
+/* draw a centered short line under the nav */
+.hero-header .main-nav {
+  position: relative;
+  padding-bottom: 1rem; /* room for the line */
+  background:
+    linear-gradient(var(--divider-color), var(--divider-color))
+    center bottom / var(--divider-width) 2px no-repeat;
+}
+
+
 /* =========================
    9. Highlight sections (desktop hover + mobile in-view)
 ========================= */
@@ -360,7 +379,7 @@ footer {
 .section-white {
   background-color: var(--navy);
   padding: 2rem;
-  color: white;
+  color: #fdfcfc;;
 }
 
 /* Contact form */
@@ -374,7 +393,7 @@ footer {
 .contact-form .form-input,
 .contact-form .form-textarea {
   padding: 0.4rem;
-  border: 1px solid #ccc;
+  border: 1px solid #fdfcfc;;
   border-radius: 6px;
   font-size: 1rem;
   font-family: inherit;
@@ -383,7 +402,7 @@ footer {
 .contact-form .form-button {
   padding: 0.75rem;
   background-color: #000;
-  color: white;
+  color: #fdfcfc;;
   border: none;
   border-radius: 6px;
   font-size: 1rem;
@@ -420,6 +439,23 @@ footer {
   box-shadow: 0 6px 18px rgba(0,0,0,.08);
 }
 /* === How We Help: CTA fills on hover/in-view with lighter brand color === */
+
+/* Frame always paints a poster image behind the <video> */
+.video-frame {
+  position: relative;
+  background: var(--poster) center / cover no-repeat, #000; /* poster first, black fallback */
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Let the poster show through (remove forced black fill on <video>) */
+.video-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* keep full poster visible */
+  background: transparent;
+}
 
 /* Default: keep the CTA looking like the other bordered cards (no fill) */
 #sectionhowWeHelp.strip .clickable-section .section-block {
